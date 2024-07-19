@@ -1,5 +1,6 @@
 from core import db
 from core.libs import helpers
+from . import teachers
 
 
 class Principal(db.Model):
@@ -11,3 +12,10 @@ class Principal(db.Model):
 
     def __repr__(self):
         return '<Principal %r>' % self.id
+
+    @classmethod
+    def get_teachers(cls):
+        return db.session.query(teachers.Teacher).all()
+
+
+
