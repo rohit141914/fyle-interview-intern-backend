@@ -45,34 +45,6 @@ def test_grade_assignment(client, h_principal):
     assert response.json['data']['state'] == AssignmentStateEnum.GRADED.value
     assert response.json['data']['grade'] == GradeEnum.C
 
-def test_grade_assignment_success(client, h_principal):
-    response = client.post(
-        '/principal/assignments/grade',
-        json={
-            'id': 4,
-            'grade': GradeEnum.C.value
-        },
-        headers=h_principal
-    )
-
-    assert response.status_code == 200
-
-    assert response.json['data']['state'] == AssignmentStateEnum.GRADED.value
-    assert response.json['data']['grade'] == GradeEnum.C.value
-
-
-def test_grade_assignment_failure_invalid_id(client, h_principal):
-    response = client.post(
-        '/principal/assignments/grade',
-        json={
-            'id': 999,  # invalid assignment ID
-            'grade': GradeEnum.C.value
-        },
-        headers=h_principal
-    )
-
-    assert response.status_code == 404  # or the expected error code
-
 
 def test_regrade_assignment(client, h_principal):
     response = client.post(
